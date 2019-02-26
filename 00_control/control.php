@@ -206,6 +206,18 @@ class Control{
     }
 
     /**
+     * Send scan results to defined callbackurls
+     */
+    public function send_to_callbackurls($result) {
+        foreach($this->getCallbackurls() as $url) {
+            $this->sendResult_POST(json_encode($result,
+                                               JSON_PRETTY_PRINT |
+                                               JSON_UNESCAPED_UNICODE |
+                                               JSON_UNESCAPED_SLASHES),
+                                   $url);
+        }
+    }
+
      * Set the user agent individually
      * Default: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.113 Safari/537.36
      */
