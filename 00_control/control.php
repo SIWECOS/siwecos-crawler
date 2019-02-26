@@ -114,6 +114,18 @@ class Control{
     public function getUserAgent() {
         return $this->userAgent;
     }
+
+    /**
+     * @short: Add HTTP scheme to the URL.
+     * @var url: The URL which will get the scheme added
+     * @algorithm: Is the scheme specified? If not add it, else leave it as it
+     * * is.
+     * @return string
+     */
+    private function addHTTP($url, $scheme = 'http://') {
+        return parse_url($url, PHP_URL_SCHEME) === null ? $scheme . $url : $url;
+    }
+
     /**
      * Set the user agent individually
      * Default: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.113 Safari/537.36
