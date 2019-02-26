@@ -100,3 +100,6 @@ class CrawlLogger extends CrawlObserver
         echo $logText;
     }
 
+    public function UriInterfaceToURL(UriInterface $uri) {
+        return $uri->__toString();
+    }
