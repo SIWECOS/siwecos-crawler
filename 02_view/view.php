@@ -38,3 +38,6 @@ class View{
         $this->printJSON($mode);
     }
 
+    public function getCrawlResult() {
+        return $this->crawl_result;
+    }
