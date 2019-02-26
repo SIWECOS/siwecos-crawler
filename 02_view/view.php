@@ -46,3 +46,41 @@ class View{
         return $this->model->getLogger()->crawlResult;
     }
 
+    /**
+     *
+     */
+    public function printJSON($mode) {
+        $result = array();
+        $tests  = array();
+
+        /* Scan results */
+        $tests["domain"] = $this->controller->url;
+        $tests["urls"] = $this->printFindings();
+
+        /* Scanner details - overall */
+        $result["name"] = "SIWECOS-CRAWLER";
+        $result["version"] = $this->version;
+        $result["hasError"] = $this->controller->getHasError();
+        $result["errorMessage"] = $this->controller->getErrorMessage();
+
+
+        $result["result"] = $tests;
+
+        $this->crawl_result = $result;
+
+        if ($mode === "GET") {
+            header('Content-Type: application/json; charset=utf-8');
+            echo json_encode($this->crawl_result,
+                             JSON_PRETTY_PRINT |
+                             JSON_UNESCAPED_UNICODE |
+                             JSON_UNESCAPED_SLASHES);
+
+            return $result;
+        } else if ($mode === "POST") {
+            $this->controller->send_to_callbackurls($this->getCrawlResult());
+        }
+    }
+    
+}
+
+?>
