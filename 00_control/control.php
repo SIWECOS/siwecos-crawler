@@ -126,6 +126,85 @@ class Control{
         return parse_url($url, PHP_URL_SCHEME) === null ? $scheme . $url : $url;
     }
 
+    /*
+     * @short: Validate the given URL.
+     * @var url: The URL which is going to be analyzed
+     * @var url_head: Contains respone headers
+     * @algorithm: Did the user specify the protocol?
+     * * If not, do it with 'http://'.
+     * * Are all characters within the URL valid?
+     * * Does the URL exist? Does it respond?
+     * * Check the HTTP status code - if it's 404 the given address
+     * * probably does not exist -> exit.
+     * * Is a local/localhost address given? If so, exit.
+     * * Is a port other than 80 (HTTP) or 443 (HTTPS) specified? If so, exit.
+     * * Do not allow any username/passwords within the given url.
+     *
+     * IMPORTANT: $url may be edited.
+     * @return boolean
+     */
+    private function checkURL($url) {
+        /* relative path for redirect */
+        if (substr($url, 0, 1) === "/") {
+            $url = filter_var($url, FILTER_SANITIZE_URL);
+            return TRUE;
+        }
+
+        if (!empty($url)) {
+            /* Does the URL have illegal characters? */
+            $url = filter_var($url, FILTER_SANITIZE_URL);
+
+            /* Protocol specified? */
+            $url = $this->addHTTP($url);
+
+            /* Is the URL valid? */
+            if ((filter_var($url, FILTER_VALIDATE_URL, FILTER_FLAG_HOST_REQUIRED) === FALSE)) {
+                $this->setErrorMessage(17, array('domain' => $url));
+                $this->setHasError(TRUE);
+                return FALSE;
+            } else {
+                $url_tmp = parse_url($url);
+
+                /* Only allow HTTP and HTTPS ports in the URL. */
+                if (isset($url_tmp['port'])) {
+                    if (($url_tmp['port'] != '80')
+                        && ($url_tmp['port'] != '443')) {
+                        $this->setErrorMessage(20, array('domain' => $url));
+                        $this->setHasError(TRUE);
+                        return FALSE;
+                    }
+                }
+
+                if (isset($url_tmp['user']) || isset($url_tmp['pass'])) {
+                    $this->setErrorMessage(20, array('domain' => $url));
+                    $this->setHasError(TRUE);
+                    return FALSE;
+                } else {
+                    /* URL seems legit. Check headers now. */
+                    $headers = get_headers($url);
+                    $status_code = substr($headers[0], 9, 3);
+                    $this->header[0] = $headers;
+                    $this->header[1] = $status_code;
+
+                    if (empty($status_code)) {
+                        $this->setErrorMessage(19, array('domain' => $url));
+                        $this->setHasError(TRUE);
+                        return FALSE;
+                    } else if ($status_code != '404') {
+                        /* Everything seems fine! */
+                        //$this->punycode_url = $url;
+                        //$this->url = $url;
+                        return $url;
+                    } else {
+                        $this->setErrorMessage(19, array('domain' => $url));
+                        $this->setHasError(TRUE);
+                        return FALSE;
+                    }
+                }
+            }
+        } /* else: no URL given - nothing to do. */
+    }
+
     /**
      * Set the user agent individually
      * Default: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.113 Safari/537.36
