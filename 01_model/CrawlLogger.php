@@ -124,3 +124,35 @@ class CrawlLogger extends CrawlObserver
         $this->crawlStatus = "Finished";
     }
 
+    private function generateResultList() {
+        $mergedURIs = array_merge($this->crawledURL, $this->willCrawlURL);
+        $filtered_mergedURIs = array_unique($mergedURIs, SORT_STRING);
+
+        // transform URI objects to URL strings
+        $filtered_mergedURLs = $this->convertUriArrayToURL($filtered_mergedURIs);
+
+        // transform URI objects to URL strings
+        $failedURIs = array();
+        foreach($this->crawlFailedURL as $failedURL) {
+            array_push($failedURIs, $failedURL["URI"]);
+        }
+        $failedURLs = $this->convertUriArrayToURL($failedURIs);
+
+        /**
+         * check urls that failed to crawl are in the resulting list
+         */
+        $intersect = array_intersect($failedURLs, $filtered_mergedURLs);
+
+        // delete failed urls in result list
+        foreach($intersect as $toDelete) {
+            if (($key = array_search($toDelete, $filtered_mergedURLs)) !== false) {
+                unset($filtered_mergedURLs[$key]);
+            }
+        }
+
+        sort($filtered_mergedURLs);
+        return $filtered_mergedURLs;
+    }
+}
+
+?>
