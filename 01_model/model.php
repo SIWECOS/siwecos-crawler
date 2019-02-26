@@ -51,3 +51,60 @@ class Model{
         return $this->crawlLogger;
     }
     
+    private function initCrawling() {
+        $baseURL = $this->controller->getURL();
+        $mDepth = $this->controller->getMaxDepth();
+        $mCount = $this->controller->getMaxCount();
+        $userAgent = $this->controller->getUserAgent();
+
+        /* validate $userAgent */
+        if (empty($userAgent)) {
+            // will set default user agent. But normally we will never get here.
+            $this->controller->setUserAgent();
+        }
+
+        /*
+         * check if crawler is limited through depth/count
+         * if so, create limited crawler. Else crawl until we got everything.
+         */
+        if ($mCount === 0) {
+            if ($mDepth === 0) {
+                // no limit
+                Crawler::create([RequestOptions::HEADERS
+                                 => ['User-Agent' => (string)$userAgent]])
+                    ->setCrawlObserver($this->crawlLogger)
+                    ->setCrawlProfile(new CrawlSubdomains($baseURL))
+                    ->startCrawling($baseURL);
+            } else {
+                // limited by depth
+                Crawler::create([RequestOptions::HEADERS
+                                 => ['User-Agent' => (string)$userAgent]])
+                    ->setCrawlObserver($this->crawlLogger)
+                    ->setMaximumDepth((int)$mDepth)
+                    ->setCrawlProfile(new CrawlSubdomains($baseURL))
+                    ->startCrawling($baseURL);
+            }
+        } else {
+            if ($mDepth === 0) {
+                // limited by count
+                Crawler::create([RequestOptions::HEADERS
+                                 => ['User-Agent' => (string)$userAgent]])
+                    ->setMaximumCrawlCount((int)$mCount)
+                    ->setCrawlObserver($this->crawlLogger)
+                    ->setCrawlProfile(new CrawlSubdomains($baseURL))
+                    ->startCrawling($baseURL);
+            } else {
+                // limited by count and depth
+                Crawler::create([RequestOptions::HEADERS
+                                 => ['User-Agent' => (string)$userAgent]])
+                    ->setCrawlObserver($this->crawlLogger)
+                    ->setMaximumDepth((int)$mDepth)
+                    ->setMaximumCrawlCount((int)$mCount)
+                    ->setCrawlProfile(new CrawlSubdomains($baseURL))
+                    ->startCrawling($baseURL);
+            }
+        }
+    }
+}
+
+?>
