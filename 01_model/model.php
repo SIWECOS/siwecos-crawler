@@ -35,3 +35,6 @@ include __DIR__ . '/CrawlLogger.php';
 
 set_time_limit(0);
 
+    private $controller;
+    private $crawlLogger;
+
