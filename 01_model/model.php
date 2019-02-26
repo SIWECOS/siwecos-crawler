@@ -46,3 +46,8 @@ class Model{
 
         $this->initCrawling();
     }
+
+    public function getLogger() {
+        return $this->crawlLogger;
+    }
+    
