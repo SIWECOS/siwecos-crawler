@@ -218,6 +218,37 @@ class Control{
         }
     }
 
+    /**
+     * Send $result to $url per POST
+     */
+    public function sendResult_POST($result, $url) {
+        $this->checkURL($url);
+
+        $con = curl_init($url);
+
+        $options = array(
+            CURLOPT_HEADER          => false,
+            CURLOPT_RETURNTRANSFER  => true,
+            CURLOPT_CUSTOMREQUEST   => "POST",
+            CURLOPT_POSTFIELDS      => $result,
+            CURLOPT_RETURNTRANSFER  => true,
+            CURLOPT_FOLLOWLOCATION  => true,
+            CURLOPT_AUTOREFERER     => true,
+            CURLOPT_SSL_VERIFYPEER  => false,
+            CURLOPT_USERAGENT       => $this->userAgent,
+            CURLOPT_CONNECTTIMEOUT  => 10,
+            CURLOPT_TIMEOUT         => 10
+        );
+
+        /* Use settings defined in $options for the connection */
+        curl_setopt_array($con, $options);
+        curl_exec($con);
+        curl_close($con);
+
+        return 0;
+    }
+
+    /**
      * Set the user agent individually
      * Default: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.113 Safari/537.36
      */
