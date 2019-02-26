@@ -20,3 +20,20 @@
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+use Spatie\Crawler\CrawlObserver;
+use Psr\Http\Message\UriInterface;
+use Spatie\Crawler\Url;
+use Psr\Http\Message\ResponseInterface;
+use GuzzleHttp\Exception\RequestException;
+
+require __DIR__ . '/vendor/autoload.php';
+
+class CrawlLogger extends CrawlObserver
+{
+    /** @var string */
+    protected $observerId;
+
+    public $crawlStatus = "INIT";
+    private $crawledURL = array();
+    private $willCrawlURL = array();
+    public $crawlFailedURL = array();
