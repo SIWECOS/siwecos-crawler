@@ -114,3 +114,13 @@ class CrawlLogger extends CrawlObserver
         return $result;
     }
 
+    /**
+     * Called when the crawl has ended.
+     */
+    public function finishedCrawling() {
+        $this->crawlResult = $this->generateResultList();
+        //print_r($this->crawlResult);
+
+        $this->crawlStatus = "Finished";
+    }
+
