@@ -35,6 +35,14 @@ include __DIR__ . '/CrawlLogger.php';
 
 set_time_limit(0);
 
+class Model{
     private $controller;
     private $crawlLogger;
 
+    public function __construct($controller) {
+        $this->controller = $controller;
+
+        $this->crawlLogger = new CrawlLogger();
+
+        $this->initCrawling();
+    }
