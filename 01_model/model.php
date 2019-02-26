@@ -50,7 +50,7 @@ class Model{
     public function getLogger() {
         return $this->crawlLogger;
     }
-    
+
     private function initCrawling() {
         $baseURL = $this->controller->getURL();
         $mDepth = $this->controller->getMaxDepth();

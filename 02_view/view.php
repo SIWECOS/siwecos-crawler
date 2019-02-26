@@ -41,7 +41,7 @@ class View{
     public function getCrawlResult() {
         return $this->crawl_result;
     }
-    
+
     private function printFindings() {
         return $this->model->getLogger()->crawlResult;
     }
@@ -80,7 +80,7 @@ class View{
             $this->controller->send_to_callbackurls($this->getCrawlResult());
         }
     }
-    
+
 }
 
 ?>
