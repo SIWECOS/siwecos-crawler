@@ -41,3 +41,8 @@ class View{
     public function getCrawlResult() {
         return $this->crawl_result;
     }
+    
+    private function printFindings() {
+        return $this->model->getLogger()->crawlResult;
+    }
+
