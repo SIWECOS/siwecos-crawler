@@ -45,3 +45,13 @@ class CrawlLogger extends CrawlObserver
         $this->observerId = $observerId;
         $this->crawlStatus = "Crawling";
     }
+
+    /**
+     * Called when the crawler will crawl the url.
+     *
+     * @param Spatie\Crawler\Url   $url
+     */
+    public function willCrawl(UriInterface $url) {
+        array_push($this->willCrawlURL, $url);
+    }
+
