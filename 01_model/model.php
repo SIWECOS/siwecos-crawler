@@ -20,3 +20,15 @@
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+use GuzzleHttp\Psr7\Uri;
+use Spatie\Crawler\Crawler;
+use GuzzleHttp\RequestOptions;
+use Spatie\Crawler\CrawlProfile;
+use Psr\Http\Message\UriInterface;
+use Spatie\Browsershot\Browsershot;
+use Spatie\Crawler\CrawlSubdomains;
+use Spatie\Crawler\CrawlInternalUrls;
+use Spatie\Crawler\Exception\InvalidCrawlRequestHandler;
+
+require __DIR__ . '/vendor/autoload.php';
+include __DIR__ . '/CrawlLogger.php';
