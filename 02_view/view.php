@@ -21,3 +21,12 @@
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+class View{
+    private $version = "0.9.8";
+    private $model;
+    private $controller;
+    private $messages;
+    private $mode;
+
+    private $crawl_result;
+
