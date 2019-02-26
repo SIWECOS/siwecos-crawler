@@ -37,3 +37,11 @@ class CrawlLogger extends CrawlObserver
     private $crawledURL = array();
     private $willCrawlURL = array();
     public $crawlFailedURL = array();
+    public function __construct(string $observerId = '') {
+        if ($observerId !== '') {
+            $observerId .= ' - ';
+        }
+
+        $this->observerId = $observerId;
+        $this->crawlStatus = "Crawling";
+    }
