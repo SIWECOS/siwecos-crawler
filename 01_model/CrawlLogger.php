@@ -70,3 +70,17 @@ class CrawlLogger extends CrawlObserver
         array_push($this->crawledURL, $url);
     }
 
+    /**
+     * Called when the crawler failed to crawl the url.
+     */
+    public function crawlFailed(
+        UriInterface $url,
+        RequestException $requestException,
+        ?UriInterface $foundOnUrl = null
+    ) {
+        $tmp = array("URI" => $url, "EXCEPTION" => $requestException,
+                     "FOUNDON" => $foundOnUrl);
+
+        array_push($this->crawlFailedURL, $tmp);
+    }
+
