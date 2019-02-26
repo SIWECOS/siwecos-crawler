@@ -1,0 +1,147 @@
+<?xml version='1.0' encoding="UTF-8" standalone='yes'?>
+<messages>
+  <message id="16">
+    <name>NO_SOURCE_CODE</name>
+    <type>error</type>
+    <content>Sorry, the given URL has no source code</content>
+  </message>
+
+  <message id="17">
+    <name>INVALID_URL</name>
+    <type>error</type>
+    <content>Sorry, this does not look like a valid URL</content>
+  </message>
+
+  <message id="18">
+    <name>CRAWLER_LOCALHOST_SCAN_NOT_ALLOWED</name>
+    <type>error</type>
+    <content>Scanning localhost is not allowed</content>
+  </message>
+
+  <message id="19">
+    <name>NO_RESPONSE</name>
+    <type>error</type>
+    <content>The given URL does not respond</content>
+  </message>
+
+  <message id="20">
+    <name>CRAWLER_PORT_DISALLOWED</name>
+    <type>error</type>
+    <content>Sorry, I am not able to communicate on that port</content>
+  </message>
+
+  <message id="21">
+    <name>CRAWLER_DONT_LEAK_USER_CREDS</name>
+    <type>error</type>
+    <content>You should not tell me your username/password for other services</content>
+  </message>
+
+  <message id="22">
+    <name>CRAWLER_JSON_DECODE_ERROR</name>
+    <type>error</type>
+    <content>Given JSON could not be decoded</content>
+  </message>
+
+  <message id="23">
+    <name>CRAWLER_REDIRECT_ERROR</name>
+    <type>error</type>
+    <content>URL does a forbidden redirect</content>
+  </message>
+  
+  <message id="24">
+    <name>UNSUPPORTED_PROTOCOL</name>
+    <type>error</type>
+    <content>The Website is using a protocol which is not supported</content>
+  </message>
+
+  <message id="25">
+    <name>FAILED_INIT</name>
+    <type>error</type>
+    <content>Crawler failed to initialize the connection</content>
+  </message>
+
+  <message id="26">
+    <name>URL_MALFORMAT</name>
+    <type>error</type>
+    <content>URL is not properly formatted</content>
+  </message>
+
+  <message id="27">
+    <name>COULDNT_RESOLVE_HOST</name>
+    <type>error</type>
+    <content>The given remote host was not resolved</content>
+  </message>
+
+  <message id="28">
+    <name>COULDNT_CONNECT</name>
+    <type>error</type>
+    <content>Failed to connect to host or proxy</content>
+  </message>
+  
+  <message id="29">
+    <name>REMOTE_ACCESS_DENIED</name>
+    <type>error</type>
+    <content>Access to the resource given in the URL was denied</content>
+  </message>
+
+  <message id="30">
+    <name>HTTP2_ERROR</name>
+    <type>error</type>
+    <content>A problem was detected in the HTTP2 framing layer</content>
+  </message>
+
+  <message id="31">
+    <name>TOO_MANY_REDIRECTS</name>
+    <type>error</type>
+    <content>There were too many redirects</content>
+  </message>
+
+  <message id="32">
+    <name>SEND_ERROR</name>
+    <type>error</type>
+    <content>Failed sending network data</content>
+  </message>
+
+  <message id="33">
+    <name>RECV_ERROR</name>
+    <type>Failure receiving network data</type>
+    <content></content>
+  </message>
+
+  <message id="34">
+    <name>BAD_CONTENT_ENCODING</name>
+    <type>error</type>
+    <content>Unrecognized transfer encoding</content>
+  </message>
+  
+  <message id="35">
+    <name>SSL_ENGINE_INITFAILED</name>
+    <type>error</type>
+    <content>Initiating the SSL Engine failed</content>
+  </message>
+
+  <message id="36">
+    <name>TIMEOUT</name>
+    <type>error</type>
+    <content>The specified timeout period was reached according to the conditions</content>
+  </message>
+
+  <message id="37">
+    <name>CONV_FAILED</name>
+    <type>error</type>
+    <content>Character conversion failed</content>
+  </message>
+
+  <message id="38">
+    <name>REMOTE_FILE_NOT_FOUND</name>
+    <type>error</type>
+    <content>The resource referenced in the URL does not exist</content>
+  </message>
+
+  <message id="39">
+    <name>HTTP2_STREAM</name>
+    <type>error</type>
+    <content>Stream error in the HTTP/2 framing layer</content>
+  </message>
+  
+</messages>
