@@ -37,6 +37,9 @@ class CrawlLogger extends CrawlObserver
     private $crawledURL = array();
     private $willCrawlURL = array();
     public $crawlFailedURL = array();
+
+    public $crawlResult = array();
+
     public function __construct(string $observerId = '') {
         if ($observerId !== '') {
             $observerId .= ' - ';
