@@ -30,3 +30,11 @@ class View{
 
     private $crawl_result;
 
+    public function __construct($model, $controller, $mode) {
+        $this->model      = $model;
+        $this->controller = $controller;
+        $this->mode       = $mode;
+
+        $this->printJSON($mode);
+    }
+
