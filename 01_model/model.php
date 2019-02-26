@@ -32,3 +32,6 @@ use Spatie\Crawler\Exception\InvalidCrawlRequestHandler;
 
 require __DIR__ . '/vendor/autoload.php';
 include __DIR__ . '/CrawlLogger.php';
+
+set_time_limit(0);
+
