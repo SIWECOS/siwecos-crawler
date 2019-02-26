@@ -103,3 +103,14 @@ class CrawlLogger extends CrawlObserver
     public function UriInterfaceToURL(UriInterface $uri) {
         return $uri->__toString();
     }
+
+    public function convertUriArrayToURL($uriArray) {
+        $result = array();
+
+        foreach($uriArray as $i) {
+            array_push($result, $this->UriInterfaceToURL($i));
+        }
+
+        return $result;
+    }
+
