@@ -84,3 +84,16 @@ class CrawlLogger extends CrawlObserver
         array_push($this->crawlFailedURL, $tmp);
     }
 
+    /**
+     * For testing purposes.
+     */
+    protected function logCrawl(UriInterface $url, ?UriInterface $foundOnUrl) {
+        $logText = "{$this->observerId}hasBeenCrawled: {$url}\r\n";
+
+        if($foundOnUrl) {
+            $logText .= "[+] --- found on {$foundOnUrl}\r\n";
+        }
+
+        echo $logText;
+    }
+
