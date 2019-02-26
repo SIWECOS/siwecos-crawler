@@ -21,6 +21,21 @@
  */
 
 include __DIR__ . '/../01_model/messages.php';
+
+class Control{
+    public $url;
+    private $punycode_url; /* punycode converted URL */
+
+    private $messages;
+    private $hasError = FALSE;
+    private $errorMessage = NULL;
+
+    private $dangerLevel;  /* not used */
+    private $mDepth;
+    private $mCount;
+    private $userAgent;
+    private $callbackurls = array();
+
     public function __construct($url, $ua, $limit_defaults) {
         $this->messages = new Messages();
         $this->setUserAgent($ua);
@@ -32,6 +47,8 @@ include __DIR__ . '/../01_model/messages.php';
         $this->punycode_url = $this->punycodeUrl($url);
         $this->punycode_url = $this->checkURL($this->punycode_url);
     }
+
+
     public function getMaxDepth() {
         return $this->mDepth;
     }
