@@ -55,3 +55,18 @@ class CrawlLogger extends CrawlObserver
         array_push($this->willCrawlURL, $url);
     }
 
+    /**
+     * Called when the crawler has crawled the given url.
+     *
+     * @param \Psr\Http\Message\UriInterface $url
+     * @param \Psr\Http\Message\ResponseInterface $response
+     * @param \Psr\Http\Message\UriInterface|null $foundOnUrl
+     */
+    public function crawled(
+        UriInterface $url,
+        ResponseInterface $response,
+        ?UriInterface $foundOnUrl = null
+    ) {
+        array_push($this->crawledURL, $url);
+    }
+
