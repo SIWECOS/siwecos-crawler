@@ -1,0 +1,8 @@
+{
+    "config": {
+        "vendor-dir": "01_model/vendor/"
+    },
+    "require": {
+        "spatie/crawler": "^4.2"
+    }
+}
