@@ -39,23 +39,32 @@ class Model{
     private $controller;
     private $crawlLogger;
 
-    public function __construct($controller) {
+    public function __construct($controller, $reqProfile) {
         $this->controller = $controller;
 
         $this->crawlLogger = new CrawlLogger();
 
-        $this->initCrawling();
+        $this->initCrawling($reqProfile);
     }
 
     public function getLogger() {
         return $this->crawlLogger;
     }
 
-    private function initCrawling() {
+    private function initCrawling($reqProfile) {
         $baseURL = $this->controller->getURL();
         $mDepth = $this->controller->getMaxDepth();
         $mCount = $this->controller->getMaxCount();
         $userAgent = $this->controller->getUserAgent();
+        $profile = new CrawlInternalUrls($baseURL);
+
+        if ($reqProfile === "all") {
+            $profile = new CrawlAllUrls($baseURL);
+        } else if($reqProfile === "subdomains") {
+            $profile = new CrawlSubdomains($baseURL);
+        } else if ($reqProfile === "internal") {
+            $profile = new CrawlInternalUrls($baseURL);
+        }
 
         /* validate $userAgent */
         if (empty($userAgent)) {
@@ -73,7 +82,7 @@ class Model{
                 Crawler::create([RequestOptions::HEADERS
                                  => ['User-Agent' => (string)$userAgent]])
                     ->setCrawlObserver($this->crawlLogger)
-                    ->setCrawlProfile(new CrawlSubdomains($baseURL))
+                    ->setCrawlProfile($profile)
                     ->startCrawling($baseURL);
             } else {
                 // limited by depth
@@ -81,7 +90,7 @@ class Model{
                                  => ['User-Agent' => (string)$userAgent]])
                     ->setCrawlObserver($this->crawlLogger)
                     ->setMaximumDepth((int)$mDepth)
-                    ->setCrawlProfile(new CrawlSubdomains($baseURL))
+                    ->setCrawlProfile($profile)
                     ->startCrawling($baseURL);
             }
         } else {
@@ -91,7 +100,7 @@ class Model{
                                  => ['User-Agent' => (string)$userAgent]])
                     ->setMaximumCrawlCount((int)$mCount)
                     ->setCrawlObserver($this->crawlLogger)
-                    ->setCrawlProfile(new CrawlSubdomains($baseURL))
+                    ->setCrawlProfile($profile)
                     ->startCrawling($baseURL);
             } else {
                 // limited by count and depth
@@ -100,7 +109,7 @@ class Model{
                     ->setCrawlObserver($this->crawlLogger)
                     ->setMaximumDepth((int)$mDepth)
                     ->setMaximumCrawlCount((int)$mCount)
-                    ->setCrawlProfile(new CrawlSubdomains($baseURL))
+                    ->setCrawlProfile($profile)
                     ->startCrawling($baseURL);
             }
         }
