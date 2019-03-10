@@ -61,7 +61,13 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     $controller->setMaxDepth($data->maxDepth);
     $controller->setMaxCount($data->maxCount);
 
-    $model = new Model($controller);
+    if (isset($data->profile)) {
+        $profile = $data->profile;
+    } else {
+        $profile = "internal";
+    }
+
+    $model = new Model($controller, $profile);
 
     $view = new View($model, $controller, "POST");
 } else if ($_SERVER['REQUEST_METHOD'] == "GET") {
@@ -86,7 +92,13 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             $controller->setMaxCount(intval($_GET['mcount']));
         }
 
-        $model = new Model($controller);
+        if (isset($_GET['profile'])) {
+            $profile = $_GET['profile'];
+        } else {
+            $profile = "internal";
+        }
+
+        $model = new Model($controller, $profile);
 
         $view = new View($model, $controller, "GET");
     }
