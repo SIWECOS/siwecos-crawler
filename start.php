@@ -27,7 +27,7 @@ include '02_view/view.php';
 // Only report errors (no warnings etc)
 error_reporting(E_ERROR);
 
-$DEFAULT_LIMITS = array("mDepth" => 2, "mCount" => 100);
+$DEFAULT_LIMITS = array("mDepth" => 1, "mCount" => 40);
 
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
     $data = json_decode(file_get_contents("php://input"));
