@@ -8,11 +8,11 @@ Using [spatie/crawler](https://github.com/spatie/crawler) and
 # Docker
 First build the image:
 
-	  `docker build -t siwecos/crawler`
+	  docker build -t siwecos/crawler
 
 Then start the container:
 
-	 `docker run --rm --name siwecos-crawler -d -p 8080:80 siwecos/crawler`
+	 docker run --rm --name siwecos-crawler -d -p 8080:80 siwecos/crawler
 
 
 # Usage
@@ -25,11 +25,11 @@ the crawler either by using a GET or a POST request.
 An example for a crawl request using all available parameters would look like
 the following:
 
-	`http://localhost:8080/?url=https://URL_TO_CRAWL.COM&mcount=100&mdepth=2&profile=internal`
+	http://localhost:8080/?url=https://URL_TO_CRAWL.COM&mcount=100&mdepth=2&profile=internal
 
 The `url` parameter is required, thus a minimal request looks like:
 
-	`http://localhost:8080/?url=https://URL_TO_CRAWL.COM`
+	http://localhost:8080/?url=https://URL_TO_CRAWL.COM
 
 
 ### POST
@@ -55,7 +55,7 @@ the following:
 The `url` parameter is always required.
 
 | Parameter    | Description                                               | Default              | Required |
-|--------------+-----------------------------------------------------------+----------------------+----------|
+|--------------|-----------------------------------------------------------|----------------------|----------|
 | url          | The url to crawl                                          | none                 | yes      |
 | maxDepth     | How deep should the crawler go                            | 1                    | no       |
 | maxCount     | How many crawled results do you want to be returned       | 40                   | no       |
