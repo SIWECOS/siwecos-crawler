@@ -28,6 +28,7 @@ use Psr\Http\Message\UriInterface;
 use Spatie\Browsershot\Browsershot;
 use Spatie\Crawler\CrawlSubdomains;
 use Spatie\Crawler\CrawlInternalUrls;
+use Spatie\Crawler\CrawlAllUrls;
 use Spatie\Crawler\Exception\InvalidCrawlRequestHandler;
 
 require __DIR__ . '/vendor/autoload.php';
