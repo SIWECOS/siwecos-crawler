@@ -2,7 +2,7 @@
 Website crawler written in PHP.
 
 Using [spatie/crawler](https://github.com/spatie/crawler) and
-[guzzle](https://github.com/guzzle/guzzle). 
+[guzzle](https://github.com/guzzle/guzzle).
 
 
 # Docker
@@ -17,7 +17,7 @@ Then start the container:
 
 # Usage
 Assuming the crawler is running with a container like shown above, one can run
-the crawler either by using a GET or a POST request. 
+the crawler either by using a GET or a POST request.
 
 
 ## Running the crawler
@@ -37,13 +37,13 @@ An example for a crawl request using all available parameters would look like
 the following:
 
 ```
-{  
+{
    "url":"https://URL_TO_CRAWL.COM",
    "maxDepth":3,
    "maxCount":100,
    "profile":"internal",
    "dangerLevel":0,
-   "callbackurls":[  
+   "callbackurls":[
       "localhost:8080/test_callback.php"
    ],
    "userAgent":"Example User Agent"
@@ -69,21 +69,21 @@ The `url` parameter is always required.
 
 ```
 {
-    "name": "SIWECOS-CRAWLER",
-    "version": "0.9.8",
-    "hasError": false,
-    "errorMessage": null,
-    "result": {
-        "domain": "https://URL_TO_CRAWL.COM",
-        "urls": [
-            "https://URL_TO_CRAWL.COM/a/test1.php",
-            "https://URL_TO_CRAWL.COM/b/test1.php",
-			"https://URL_TO_CRAWL.COM/c/test1.php",
-			"https://URL_TO_CRAWL.COM/a/test2.php",
-			"https://URL_TO_CRAWL.COM/b/test2.php",
-			"https://URL_TO_CRAWL.COM/c/test2.php", 			
-			... ... ...
-			]
-    }
+   "name":"SIWECOS-CRAWLER",
+   "version":"0.9.8",
+   "hasError":false,
+   "errorMessage":null,
+   "result":{
+      "domain":"https://URL_TO_CRAWL.COM",
+      "urls":[
+         "https://URL_TO_CRAWL.COM/a/test1.php",
+         "https://URL_TO_CRAWL.COM/b/test1.php",
+         "https://URL_TO_CRAWL.COM/c/test1.php",
+         "https://URL_TO_CRAWL.COM/a/test2.php",
+         "https://URL_TO_CRAWL.COM/b/test2.php",
+         "https://URL_TO_CRAWL.COM/c/test2.php",
+         ... ... ...
+      ]
+   }
 }
 ```
