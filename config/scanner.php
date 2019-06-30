@@ -61,8 +61,9 @@ return [
     | others.
     | These strings are defined here.
     | 
-    */                  
-    'prio_strings'   => env('PRIO_STRINGS', [
+    */
+
+    'prio_strings'   => array_merge([
         "app",
         "admin",
         "blog",
@@ -83,7 +84,7 @@ return [
         "kontakt",
         "wp-admin",
         "login"
-    ]),
+    ], env('ADDITIONAL_PRIO_STRINGS', [])),
 
 
     /*
