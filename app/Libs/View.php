@@ -3,6 +3,7 @@
 namespace App\Libs;
 
 use App\Libs\CrawlLogger;
+use App\Libs\TranslateableMessage;
 
 class View {
 
@@ -53,8 +54,9 @@ class View {
         $type = strtoupper(str_replace("Exception", "", explode("\\", $type)[2])) . "_ERROR";
 
         $this->hasError = TRUE;
-        $this->errorMessage["placeholder"] = $type;
-        $this->errorMessage["values"]["description"] = $errorMessage;
+        $this->errorMessage = TranslateableMessage::get(
+            $type, ["description" => $errorMessage]
+        );
 
         $result = array();
         $tests  = array();
