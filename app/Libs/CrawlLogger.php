@@ -163,7 +163,6 @@ class CrawlLogger extends CrawlObserver
         /**
          * Shorten result to env('MAX_COUNT', 10)
          */
-        echo count($prioList);
         if (count($prioList) > config("scanner.maxCount")) {
             $prioList = array_slice($prioList, 0, config("scanner.maxCount"), true);
         }
