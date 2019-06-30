@@ -78,6 +78,11 @@ return [
         "jobs",
         "forum",
         "download",
+        "shop",
+        "contact",
+        "kontakt",
+        "wp-admin",
+        "login"
     ]),
 
 
