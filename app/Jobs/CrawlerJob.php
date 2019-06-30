@@ -40,10 +40,19 @@ class CrawlerJob implements ShouldQueue
         Log::info('Queue jobs remaining ' . Queue::size($this->queue));
 
         // NOTE(ya): Default parameters out of config
-        $agent  = \Config::get('scanner.user_agent');
-        $depth  = \Config::get('scanner.maxDepth');
-        $count  = \Config::get('scanner.maxCount');
-        $profile  = \Config::get('scanner.profile');
+        $agent  = config('scanner.user_agent');
+        if (config('scanner.i_maxDepth') < config('scanner.maxDepth')) {
+            $depth  = config('scanner.maxDepth');
+        } else {
+            $depth  = config('scanner.i_maxDepth');
+        }
+
+        if (config('scanner.i_maxCount') < config('scanner.maxCount')) {
+            $count  = config('scanner.maxCount');
+        } else {
+            $count  = config('scanner.i_maxCount');
+        }
+        $profile  = config('scanner.profile');
 
         $scan = new CrawlerScan(
             $this->request->get('url'),
