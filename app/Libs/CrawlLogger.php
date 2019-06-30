@@ -101,9 +101,103 @@ class CrawlLogger extends CrawlObserver
      */
     public function finishedCrawling() {
         $this->crawlResult = $this->generateResultList();
-        //print_r($this->crawlResult);
 
         $this->crawlStatus = "Finished";
+    }
+
+    /**
+     * Prioritize a given array of URLs.
+     */
+    private function prioritizeList($list) {
+        $prioList = [];
+        $prioList_tmp = [];
+        $paths = [];
+
+        // Transform list into tuple: (URL, PATH)
+        $i = 0;
+        foreach ($list as $url) {
+            $parsed_path = parse_url($url, PHP_URL_PATH);
+
+            // remove main domain
+            if ($parsed_path === "/") {
+                unset($list[$i]);
+            }
+
+            $paths[] = [$url, $parsed_path];
+
+            $i++;
+        }
+
+        // Determine path depth and prioritize
+        foreach ($paths as $tuple) {
+            // remove trailing slash
+            if (substr($tuple[1], -1) === "/") {
+                $tuple[1] = rtrim($tuple[1], "/");
+            }
+            $path_split = explode("/", $tuple[1]);
+
+            if (count($path_split) === 2) {
+                if (strlen($path_split[1]) > 0){
+                    array_push($prioList_tmp, $tuple[0]);
+                }
+            }
+        }
+
+        /**
+         * Insert URLss containing a priority string into $prioList
+         */
+        $prio_strings = config("scanner.prio_strings");
+        $prioList = $this->pushElementsContainingString($prio_strings, $prioList_tmp, $prioList);
+
+        /**
+         * Insert URLs pointing to an unique path that are not added yet
+         */
+        $prioList = $this->pushElementsNotInList($prioList_tmp, $prioList);
+        $prioList_tmp = $paths = 0;
+
+        /**
+         * Insert all other URLs (lower priority) into list
+         */
+        $prioList = $this->pushElementsNotInList($list, $prioList);
+
+        /**
+         * Shorten result to env('MAX_COUNT', 10)
+         */
+        echo count($prioList);
+        if (count($prioList) > config("scanner.maxCount")) {
+            $prioList = array_slice($prioList, 0, config("scanner.maxCount"), true);
+        }
+
+        return array_unique($prioList);
+    }
+
+
+    /**
+     * Pushes entries of $elements into $list if it is not contained already
+     */
+    private function pushElementsNotInList($elements, $list) {
+        foreach ($elements as $e) {
+            if (!in_array($e, $list)) {
+                array_push($list, $e);
+            }
+        }
+
+        return $list;
+    }
+
+    /**
+     * Pushes entries of $list_all containing specific strings ($elements) into $list_specific
+     */
+    private function pushElementsContainingString($elements, $list_all, $list_specific) {
+        foreach ($list_all as $url) {
+            foreach ($elements as $prio) {
+                if (strpos($url, $prio)) {
+                    array_push($list_specific, $url);
+                }
+            }
+        }
+
+        return $list_specific;
     }
 
     private function generateResultList() {
@@ -132,8 +226,7 @@ class CrawlLogger extends CrawlObserver
             }
         }
 
-        sort($filtered_mergedURLs);
-        return $filtered_mergedURLs;
+        return $this->prioritizeList($filtered_mergedURLs);
     }
 }
 

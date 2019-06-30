@@ -99,7 +99,6 @@ class CrawlerScan {
                          file_get_contents(base_path('VERSION')),
                          $this->crawlLogger);
 
-
         try {
             // NOTE(ya): Try to establish a connection first and catch exceptions.
             $status_code = $this->client->get($this->url)->getStatusCode();
@@ -160,7 +159,6 @@ class CrawlerScan {
             $profile = new CrawlInternalUrls($url);
         }
 
-
         /*
          * check if crawler is limited through depth/count
          * if so, create limited crawler. Else crawl until we got everything.
@@ -198,7 +196,8 @@ class CrawlerScan {
                     ->startCrawling($url);
             }
         }
-        return;
+
+        return 0;
     }
 
     /**
