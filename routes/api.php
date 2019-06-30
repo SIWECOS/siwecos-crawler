@@ -13,4 +13,6 @@ use Illuminate\Http\Request;
   |
 */
 
-Route::post("/start", "CrawlController@start");
+Route::group(['prefix' => 'v1'], function () {
+    Route::match(['get', 'post'], '/start', "CrawlController@start");
+});
