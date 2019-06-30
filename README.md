@@ -25,7 +25,7 @@ the crawler either by using a GET or a POST request.
 An example for a crawl request using all available parameters would look like
 the following:
 
-	http://localhost:8080/?url=https://URL_TO_CRAWL.COM&mcount=100&mdepth=2&profile=internal
+	http://localhost:8080/?url=https://URL_TO_CRAWL.COM&maxCount=100&maxDepth=2&profile=internal
 
 The `url` parameter is required, thus a minimal request looks like:
 
@@ -58,7 +58,7 @@ The `url` parameter is always required.
 |--------------|-----------------------------------------------------------|----------------------|----------|
 | url          | The url to crawl                                          | none                 | yes      |
 | maxDepth     | How deep should the crawler go                            | 1                    | no       |
-| maxCount     | How many crawled results do you want to be returned       | 40                   | no       |
+| maxCount     | How many crawled results do you want to be returned       | 10                   | no       |
 | profile      | Set the crawler profile ("internal", "all", "subdomains") | internal             | no       |
 | dangerLevel  | - no affect -                                             | 0                    | no       |
 | callbackurls | Define where the result should be sent to                 | none                 | yes      |
