@@ -4,6 +4,7 @@ namespace App\Jobs;
 
 use App\CrawlerScan;
 use App\Http\Requests\ScanStartRequest;
+use App\Libs\TranslateableMessage;
 use GuzzleHttp\Client;
 use Illuminate\Bus\Queueable;
 use Illuminate\Queue\SerializesModels;
@@ -82,6 +83,9 @@ class CrawlerJob implements ShouldQueue
             );
             try {
                 $client = new Client;
+                $type = strtoupper(str_replace("Exception", "",
+                                               explode("\\", get_class($exception))[2])) . "_ERROR";
+
                 $client->post(
                     $url,
                     [
@@ -91,7 +95,9 @@ class CrawlerJob implements ShouldQueue
                             'name'         => 'CRAWLER',
                             'version'      => file_get_contents(base_path('VERSION')),
                             'hasError'     => true,
-                            'errorMessage' => $exception->getMessage(),
+                            'errorMessage' => TranslateableMessage::get(
+                                $type, ["description" => $exception->getMessage()]
+                            ),
                             'score'        => 0
                         ],
                     ]
