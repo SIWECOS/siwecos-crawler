@@ -17,20 +17,20 @@ class CrawlController extends Controller
         }
 
         // NOTE(ya): Default parameters out of config
-        $agent  = config('scanner.user_agent');
-        if (config('scanner.i_maxDepth') < config('scanner.maxDepth')) {
-            $depth  = config('scanner.maxDepth');
+        $agent  = config('crawler.user_agent');
+        if (config('crawler.i_maxDepth') < config('crawler.maxDepth')) {
+            $depth  = config('crawler.maxDepth');
         } else {
-            $depth  = config('scanner.i_maxDepth');
+            $depth  = config('crawler.i_maxDepth');
         }
 
-        if (config('scanner.i_maxCount') < config('scanner.maxCount')) {
-            $count  = config('scanner.maxCount');
+        if (config('crawler.i_maxCount') < config('crawler.maxCount')) {
+            $count  = config('crawler.maxCount');
         } else {
-            $count  = config('scanner.i_maxCount');
+            $count  = config('crawler.i_maxCount');
         }
 
-        $profile  = config('scanner.profile');
+        $profile  = config('crawler.profile');
 
         $scan = new CrawlerScan(
             $request->get('url'),

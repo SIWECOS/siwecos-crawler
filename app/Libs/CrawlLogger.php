@@ -146,7 +146,7 @@ class CrawlLogger extends CrawlObserver
         /**
          * Insert URLss containing a priority string into $prioList
          */
-        $prio_strings = config("scanner.prio_strings");
+        $prio_strings = config("crawler.prio_strings");
         $prioList = $this->pushElementsContainingString($prio_strings, $prioList_tmp, $prioList);
 
         /**
@@ -163,8 +163,8 @@ class CrawlLogger extends CrawlObserver
         /**
          * Shorten result to env('MAX_COUNT', 10)
          */
-        if (count($prioList) > config("scanner.maxCount")) {
-            $prioList = array_slice($prioList, 0, config("scanner.maxCount"), true);
+        if (count($prioList) > config("crawler.maxCount")) {
+            $prioList = array_slice($prioList, 0, config("crawler.maxCount"), true);
         }
 
         return array_unique($prioList);
