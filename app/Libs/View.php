@@ -27,7 +27,7 @@ class View {
         $tests  = array();
 
         /* Scan results */
-        $tests["domain"] = $this->url;
+        $tests["startUrl"] = $this->url;
         $tests["urls"] = $this->logger->crawlResult;
 
         /* Scanner details - overall */
@@ -62,7 +62,7 @@ class View {
         $tests  = array();
 
         /* Scan results */
-        $tests["domain"] = $this->url;
+        $tests["startUrl"] = $this->url;
         $tests["urls"] = $this->logger->crawlResult;
 
         /* Scanner details - overall */
